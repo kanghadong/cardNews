@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import Header from './container/Header/Header';
+import Content from './container/Content/Content';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  setKeyword,
+  search,
+  getCurrentHeadline,
+} from './actions/search';
+
+class App extends Component {
+  componentDidMount() {
+    this.props.getCurrentHeadline();
+  }
+  
+  render() {
+    const {keyword, prevKeyword, articles, isShowProgress} = this.props;
+    
+    return (
+      <div>
+        <div>
+          <Header 
+            keyword={keyword}
+            setKeyword={this.props.setKeyword}
+            search={this.props.search}
+          />
+        </div>
+        <div>
+          <Content
+            keyword={prevKeyword}
+            articles={articles}
+            isShowProgress={isShowProgress}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  keyword: state.search.get('keyword'),
+  prevKeyword: state.search.get('prevKeyword'),
+  articles: state.search.get('articles'),
+  isShowProgress: state.search.get('isShowProgress'),
+});
+
+const mapDispatchToProps = {
+  setKeyword,
+  search,
+  getCurrentHeadline,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
