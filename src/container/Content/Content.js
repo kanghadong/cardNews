@@ -23,19 +23,17 @@ const TitlebarGridList = (props) => {
 
     return (
         <div className={classes.root}>
-            {articles.length > 0 ? (
-                <GridList cellHeight={300} spacing={15} className={classes.gridList} cols={getGridListCols()}>
-                    {articles.map(item => (
-                        <GridListTile key={item.urlToImage}>
-                            <img src={item.urlToImage} alt={item.title} />
-                            <GridListTileBar
-                                title={item.title}
-                                subtitle={<span>{item.source.name} / {item.author}</span>}
-                            />
-                        </GridListTile>
-                    ))}
-                </GridList>
-            ) : null}
+            <GridList cellHeight={300} spacing={15} className={classes.gridList} cols={getGridListCols()}>
+                {articles.map((item, index) => (
+                    <GridListTile key={index}>
+                        <img src={item.urlToImage} alt={item.title} />
+                        <GridListTileBar
+                            title={item.title}
+                            subtitle={<span>{item.source.name} / {item.author}</span>}
+                        />
+                    </GridListTile>
+                ))}
+            </GridList>
             {isShowProgress ? <Progress /> : null}
         </div>
     );

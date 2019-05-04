@@ -28,7 +28,6 @@ class App extends Component {
         </div>
         <div>
           <Content
-            keyword={prevKeyword}
             articles={articles}
             isShowProgress={isShowProgress}
           />
@@ -50,6 +49,5 @@ const mapDispatchToProps = {
   search,
   getCurrentHeadline,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

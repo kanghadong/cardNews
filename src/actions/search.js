@@ -7,8 +7,8 @@ export const SET_PAGE = '[SEARCH] SET_PAGE';
 export const SET_ARTICLES = '[SEARCH] SET_ARTICLES';
 export const SET_IS_SHOW_PROGRESS = '[SEARCH] SET_IS_SHOW_PROGRESS';
 
-const newsUrl = (keyword, page) => 
-`https://newsapi.org/v2/everything?q=${keyword}&page=${page}&apiKey=0dd22c7d5e8748b38543f7227c42fa09`;
+const newsUrl = (keyword, page) =>
+    `https://newsapi.org/v2/everything?q=${keyword}&page=${page}&apiKey=0dd22c7d5e8748b38543f7227c42fa09`;
 
 export const setKeyword = (value) =>
     async (dispatch) => dispatch(createAction(SET_KEYWORD)(value));
@@ -48,9 +48,7 @@ export const search = () =>
             if (data.status === 'ok') {
                 dispatch(createAction(SET_ARTICLES)(data.articles));
                 dispatch(createAction(SET_PREV_KEYWORD)(keyword));
-                dispatch(createAction(SET_PAGE)(1));
-            } else {
-
+                await dispatch(createAction(SET_PAGE)(1));
             }
         } catch (e) {
             console.error(e);
